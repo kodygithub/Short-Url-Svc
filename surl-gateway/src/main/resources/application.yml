@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: surl-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: surl-services
+          uri: http://127.0.0.1:9999
+          predicates:
+            - Path=/surl-services/**
+          filters:
+            - StripPrefix=1
