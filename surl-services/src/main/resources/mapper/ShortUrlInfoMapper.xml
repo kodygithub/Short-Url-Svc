@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.coders.club.surl.services.mapper.ShortUrlInfoMapper">
+
+    <resultMap id="base" type="org.coders.club.surl.common.SUrlInfo">
+        <id column="id" property="id"/>
+        <result column="short_code" property="shortCode"/>
+        <result column="target_url" property="targetUrl"/>
+    </resultMap>
+
+    <select id="list" resultType="org.coders.club.surl.common.SUrlInfo">
+        select sl.id,
+               sl.short_code,
+               stu.target_url
+        from sl_info sl
+                 left join sl_target_url stu on sl.target_url_id = stu.id;
+    </select>
+
+    <select id="queryWithShortCode" resultType="org.coders.club.surl.common.SUrlInfo">
+        select sl.id,
+               sl.short_code,
+               stu.target_url
+        from sl_info sl
+                 left join sl_target_url stu on sl.target_url_id = stu.id
+        where sl.short_code = #{shortCode}
+        ;
+    </select>
+
+</mapper>
